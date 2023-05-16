@@ -1,39 +1,38 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-
-const applicationSchema = mongoose.Schema({
-   company_id: {
+const applicationSchema = mongoose.Schema(
+  {
+    companyId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Company"
-   },
-   Internship_id: {
+      ref: "Company",
+    },
+    Internship_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Internship"
-   },
-   user_id: {
+      ref: "Internship",
+    },
+    user_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-   },
-   application_status: {
+      ref: "User",
+    },
+    application_status: {
       type: String,
-      enum : ['Applied','Pending','Seen'],
-      default : 'Applied'
-   },
-   // applied_date: {
-   //    type: Date,
-   //    required: true
-   // },
-   cover_letter: {
+      enum: ["Applied", "Pending", "Seen"],
+      default: "Applied",
+    },
+    // applied_date: {
+    //    type: Date,
+    //    required: true
+    // },
+    cover_letter: {
       type: [String],
-      required: true
-   },
-   Availability: {
+      required: true,
+    },
+    Availability: {
       type: [String],
-      required: true
-   }
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-
-
-}, { timestamps: true })
-
-module.exports = mongoose.model("Application", applicationSchema)
+module.exports = mongoose.model("Application", applicationSchema);
