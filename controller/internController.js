@@ -3,7 +3,48 @@ const asynHandler = require("express-async-handler");
 const Internship = require("../model/internshipModel");
 
 const getInternship = asynHandler(async (req, res) => {
-  const internship = await Internship.find().populate("companyId", "Name");
+  const { category, location, type, stipend } = req.query;
+  const condition = {
+    $or: [],
+  };
+
+  if (category)
+    condition.$or.push({
+      internshipName: category,
+    });
+  if (location)
+    condition.$or.push({
+      location,
+    });
+  if (type)
+    condition.$or.push({
+      internshipType: type,
+    });
+  if (stipend)
+    condition.$or.push({
+      stipend: { $gt: stipend },
+    });
+
+  // if (category)
+  //   Object.assign(condition, {
+  //     internshipName: category,
+  //   });
+  // if (location)
+  //   Object.assign(condition, {
+  //     location,
+  //   });
+  // if (type)
+  //   Object.assign(condition, {
+  //     internshipType: type,
+  //   });
+  // if (stipend)
+  //   Object.assign(condition, {
+  //     stipend: { $gt: stipend },
+  //   });
+  const internship = await Internship.find(condition).populate(
+    "companyId",
+    "Name"
+  );
   res.status(200).json(internship);
 });
 
