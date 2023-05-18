@@ -29,6 +29,12 @@ const getApplication = asyncHandler(async (req, res) => {
   res.status(200).json(uapp);
 });
 
+const getApplicationByInternshipId = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+  const uapp = await Application.find({ Internship_id: id });
+  res.status(200).json(uapp);
+});
+
 const getCoverLetter = asyncHandler(async (req, res) => {
   // console.log(req.params.id);
   const letter = await Application.findById(req.params.id);
@@ -41,4 +47,5 @@ module.exports = {
   updateApplication,
   getApplication,
   getCoverLetter,
+  getApplicationByInternshipId,
 };
