@@ -25,6 +25,8 @@ const getInternship = asynHandler(async (req, res) => {
       stipend: { $gt: stipend },
     });
 
+  if (!condition.$or.length) delete condition.$or;
+
   // if (category)
   //   Object.assign(condition, {
   //     internshipName: category,
