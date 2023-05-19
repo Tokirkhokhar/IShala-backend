@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const asyncHandler = require("express-async-handler");
 const Company = require("../model/companyModel");
+const Internship = require("../model/internshipModel");
 const JWT = require("jsonwebtoken");
 const bcpt = require("bcryptjs");
 
@@ -33,7 +34,15 @@ const loginEmployee = asyncHandler(async (req, res) => {
   }
 });
 
+const getInternshipByCompanyId = asyncHandler(async (req, res) => {
+  const { companyId } = req.params;
+  const internships = await Internship.find({ companyId });
+  if (internships.length) return res.status(200).json({ internships });
+  else return res.status(200).json({ internships: [] });
+});
+
 module.exports = {
   signupEmployee,
   loginEmployee,
+  getInternshipByCompanyId,
 };
